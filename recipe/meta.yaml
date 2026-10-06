@@ -15,14 +15,15 @@ build:
   noarch: python
   entry_points:
     - gladtex = gleetex.__main__:main
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
+    - python {{ python_min }}
+    - setuptools >=61
     - pip
-    - python >=3.4
   run:
-    - python >=3.4
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -31,6 +32,7 @@ test:
     - pip check
     - gladtex --help
   requires:
+    - python {{ python_min }}
     - pip
 
 about:
